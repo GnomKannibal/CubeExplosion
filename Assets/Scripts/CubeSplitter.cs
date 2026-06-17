@@ -18,14 +18,22 @@ public class CubeSplitter : MonoBehaviour
 
     private void Split(Cube cube) 
     {
-        if (cube.isSplit())
+        int spawnCountMin = 2;
+        int spawnCountMax = 6;
+
+        int spawnCubesCount = Random.Range(spawnCountMin, spawnCountMax);
+
+        if (cube.IsDivide())
         {
-            _cubeSpawner.Spawn(cube);
+            _cubeSpawner.Spawn(cube, spawnCubesCount);
+
             _explosioner.Explode(cube);
         }
         else 
         {
-            _cubeSpawner.DeleteObject(cube);
+            spawnCubesCount = 0;
+
+            _cubeSpawner.Spawn(cube, spawnCubesCount);
         }
     }
 }

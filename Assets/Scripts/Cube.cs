@@ -2,24 +2,20 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    private int _splitChance = 100;
+    public int SplitChance { get; private set; } = 100;
 
-    public bool isSplit() 
+    public bool IsDivide() 
     {
         const int ChanceMaxNumber = 100;
+        const int ChanceMinNumber = 0;
 
-        System.Random random = new System.Random();
+        int randomChanceProke = Random.Range(ChanceMinNumber, ChanceMaxNumber + 1);
 
-        return random.Next(ChanceMaxNumber + 1) <= _splitChance;
+        return randomChanceProke <= SplitChance;
     }
 
-    public int GetChance() 
+    public void InitializeChance(int chance)
     {
-        return _splitChance;
-    }
-
-    public void Initialize(int chance)
-    {
-        _splitChance = chance;
+        SplitChance = chance;
     }
 }

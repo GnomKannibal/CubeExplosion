@@ -1,36 +1,26 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CubeSpawner : MonoBehaviour
 {
-    public void Spawn(Cube cube)
+    public void Spawn(Cube cube, int spawnCubesCount)
     {
-        const int ChanceReducerNumber = 2;
+        const int DividerInHalf = 2;
 
         Renderer renderer;
-        int spawnCountMin = 2;
-        int spawnCountMax = 6;
-
-        int spawnCubesCount = Random.RandomRange(spawnCountMin, spawnCountMax);
 
         for (int i = 0; i < spawnCubesCount; i++)
         {
             Cube newCube = Instantiate(cube);
 
-            newCube.Initialize(cube.GetChance() / ChanceReducerNumber);
+            newCube.InitializeChance(cube.SplitChance / DividerInHalf);
 
-            newCube.transform.localScale /= 2;
+            newCube.transform.localScale /= DividerInHalf;
 
             renderer = newCube.GetComponent<Renderer>();
 
-            renderer.material.color = UnityEngine.Random.ColorHSV();
+            renderer.material.color = Random.ColorHSV();
         }
 
-        DeleteObject(cube);
-    }
-
-    public void DeleteObject(Cube cube) 
-    {
         GameObject.Destroy(cube.gameObject);
     }
 }
