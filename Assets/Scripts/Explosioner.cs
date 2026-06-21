@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Explosioner : MonoBehaviour
 {
@@ -7,10 +8,17 @@ public class Explosioner : MonoBehaviour
 
     private Rigidbody _rigidbody;
 
-    public void Explode(Cube cube) 
-    {
-        _rigidbody = cube.GetComponent<Rigidbody>();
+    private List<Cube> _createdCubes = new List<Cube>();
 
-        _rigidbody.AddExplosionForce(_explosionForce, cube.transform.position, _explosionRadius);
+    public void Explode(Cube explodingCube, List<Cube> createdCubes) 
+    {
+        Rigidbody rigidityExplodingCube = explodingCube.RigidbodyComponent;
+
+        for (int i = 0; i < createdCubes.Count; i++) 
+        {
+            Rigidbody rigibodyCreatedCube = createdCubes[i].RigidbodyComponent;
+
+            rigibodyCreatedCube.AddExplosionForce(_explosionForce, explodingCube.transform.position, _explosionRadius);
+        }        
     }
 }

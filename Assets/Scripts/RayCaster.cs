@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class RayCaster : MonoBehaviour
 {
-    [SerializeField] InputReader _inputReader;
+    [SerializeField] private InputReader _inputReader;
     private Camera _cam;
     private Ray _ray;
 
-    public event Action<Cube> CubeClicked;
+    public event Action<Cube> CubeDetected;
 
     private void OnEnable()
     {
@@ -30,10 +30,8 @@ public class RayCaster : MonoBehaviour
 
         if (Physics.Raycast(_ray.origin, _ray.direction, out RaycastHit hit, Mathf.Infinity))
         {
-            Cube cube = hit.collider.GetComponent<Cube>();
-
-            if (cube != null)
-                CubeClicked?.Invoke(cube);
+            if (hit.collider.TryGetComponent<Cube>(out Cube cube))
+                CubeDetected?.Invoke(cube);
         }
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class CubeSplitter : MonoBehaviour
 {
@@ -6,34 +7,31 @@ public class CubeSplitter : MonoBehaviour
     [SerializeField] private Explosioner _explosioner;
     [SerializeField] private CubeSpawner _cubeSpawner;
 
+    private List<Cube> _createdCubes = new List<Cube>();
+
     private void OnEnable()
     {
-        _rayCaster.CubeClicked += Split;
+        _rayCaster.CubeDetected += Split;
     }
 
     private void OnDisable()
     {
-        _rayCaster.CubeClicked -= Split;       
+        _rayCaster.CubeDetected -= Split;       
     }
 
     private void Split(Cube cube) 
     {
-        int spawnCountMin = 2;
-        int spawnCountMax = 6;
-
-        int spawnCubesCount = Random.Range(spawnCountMin, spawnCountMax);
-
         if (cube.IsDivide())
         {
-            _cubeSpawner.Spawn(cube, spawnCubesCount);
+            _createdCubes = _cubeSpawner.Spawn(cube);
 
-            _explosioner.Explode(cube);
+            _explosioner.Explode(cube, _createdCubes);
+
+            _cubeSpawner.DeleteCube(cube);
         }
         else 
         {
-            spawnCubesCount = 0;
-
-            _cubeSpawner.Spawn(cube, spawnCubesCount);
+            _cubeSpawner.DeleteCube(cube);
         }
     }
 }
