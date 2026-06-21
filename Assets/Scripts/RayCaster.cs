@@ -4,7 +4,7 @@ using UnityEngine;
 public class RayCaster : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
-    private Camera _cam;
+    private Camera _camera;
     private Ray _ray;
 
     public event Action<Cube> CubeDetected;
@@ -21,12 +21,12 @@ public class RayCaster : MonoBehaviour
 
     private void Start()
     {
-        _cam = Camera.main;
+        _camera = Camera.main;
     }
 
     private void FindPointClick()
     {
-        _ray = _cam.ScreenPointToRay(Input.mousePosition);
+        _ray = _camera.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(_ray.origin, _ray.direction, out RaycastHit hit, Mathf.Infinity))
         {

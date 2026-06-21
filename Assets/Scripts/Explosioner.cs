@@ -1,24 +1,31 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class Explosioner : MonoBehaviour
 {
-    private int _explosionForce = 250;
-    private int _explosionRadius = 5;
+    private float _explosionForce = 50f;
+    private float _explosionRadius = 15f;
+    private float _cubeSize;
 
     private Rigidbody _rigidbody;
 
-    private List<Cube> _createdCubes = new List<Cube>();
-
-    public void Explode(Cube explodingCube, List<Cube> createdCubes) 
+    public void Explode(Cube explodingCube)
     {
-        Rigidbody rigidityExplodingCube = explodingCube.RigidbodyComponent;
+        Rigidbody rigidityExplodingCube = explodingCube.Rigidbody;
 
-        for (int i = 0; i < createdCubes.Count; i++) 
+        Collider[] hitColliders = Physics.OverlapSphere(explodingCube.transform.position, _explosionRadius);
+
+        _cubeSize = explodingCube.transform.localScale.x;
+        _explosionForce /= _cubeSize;
+        _explosionRadius /= _cubeSize;
+
+        for (int i = 0; i < hitColliders.Length; i++)
         {
-            Rigidbody rigibodyCreatedCube = createdCubes[i].RigidbodyComponent;
+            if (hitColliders[i].TryGetComponent<Cube>(out Cube cube))
+            {
+                Rigidbody rigibodyCube = cube.Rigidbody;
 
-            rigibodyCreatedCube.AddExplosionForce(_explosionForce, explodingCube.transform.position, _explosionRadius);
-        }        
+                rigibodyCube.AddExplosionForce(_explosionForce, explodingCube.transform.position, _explosionRadius);
+            }
+        }
     }
 }

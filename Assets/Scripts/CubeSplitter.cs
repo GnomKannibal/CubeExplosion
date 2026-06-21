@@ -1,13 +1,10 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class CubeSplitter : MonoBehaviour
 {
     [SerializeField] private RayCaster _rayCaster;
     [SerializeField] private Explosioner _explosioner;
     [SerializeField] private CubeSpawner _cubeSpawner;
-
-    private List<Cube> _createdCubes = new List<Cube>();
 
     private void OnEnable()
     {
@@ -23,9 +20,9 @@ public class CubeSplitter : MonoBehaviour
     {
         if (cube.IsDivide())
         {
-            _createdCubes = _cubeSpawner.Spawn(cube);
+            _cubeSpawner.Spawn(cube);
 
-            _explosioner.Explode(cube, _createdCubes);
+            _explosioner.Explode(cube);
 
             _cubeSpawner.DeleteCube(cube);
         }

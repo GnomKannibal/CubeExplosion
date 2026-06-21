@@ -4,13 +4,13 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     public int SplitChance { get; private set; } = 100;
-    public Renderer RendererComponent { get; private set; }
-    public Rigidbody RigidbodyComponent { get; private set; }
+    public Renderer Renderer { get; private set; }
+    public Rigidbody Rigidbody { get; private set; }
 
     private void Awake()
     {
-        RendererComponent = GetComponent<Renderer>();
-        RigidbodyComponent = GetComponent<Rigidbody>();
+        Renderer = GetComponent<Renderer>();
+        Rigidbody = GetComponent<Rigidbody>();
     }
 
     public bool IsDivide() 
