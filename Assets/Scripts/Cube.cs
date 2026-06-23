@@ -13,7 +13,7 @@ public class Cube : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody>();
     }
 
-    public bool IsDivide() 
+    public bool CanDivide() 
     {
         const int ChanceMaxNumber = 100;
         const int ChanceMinNumber = 0;

@@ -18,17 +18,13 @@ public class CubeSplitter : MonoBehaviour
 
     private void Split(Cube cube) 
     {
-        if (cube.IsDivide())
+        if (cube.CanDivide())
         {
             _cubeSpawner.Spawn(cube);
 
             _explosioner.Explode(cube);
+        }
 
-            _cubeSpawner.DeleteCube(cube);
-        }
-        else 
-        {
-            _cubeSpawner.DeleteCube(cube);
-        }
+        _cubeSpawner.DeleteCube(cube);
     }
 }

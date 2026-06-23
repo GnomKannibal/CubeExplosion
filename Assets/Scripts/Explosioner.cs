@@ -20,7 +20,7 @@ public class Explosioner : MonoBehaviour
 
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            if (hitColliders[i].TryGetComponent<Cube>(out Cube cube))
+            if (hitColliders[i].TryGetComponent(out Cube cube))
             {
                 Rigidbody rigibodyCube = cube.Rigidbody;
 

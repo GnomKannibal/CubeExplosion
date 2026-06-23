@@ -24,9 +24,9 @@ public class RayCaster : MonoBehaviour
         _camera = Camera.main;
     }
 
-    private void FindPointClick()
+    private void FindPointClick(Vector3 mousePosition)
     {
-        _ray = _camera.ScreenPointToRay(Input.mousePosition);
+        _ray = _camera.ScreenPointToRay(mousePosition);
 
         if (Physics.Raycast(_ray.origin, _ray.direction, out RaycastHit hit, Mathf.Infinity))
         {
